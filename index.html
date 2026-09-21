@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun! 🎉 Spesial from pengajian fam</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mali:ital,wght@0,400;0,600;1,500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --font-heading: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Mali', cursive, sans-serif;
+      --font-sans: 'Poppins', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #0d1117;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #090d16 0%, #111827 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: opacity 1.2s ease, visibility 1.2s ease;
+    }
+
+    #intro-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                  radial-gradient(2px 2px at 40px 70px, #ffd166, rgba(0,0,0,0)),
+                  radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                  radial-gradient(2px 2px at 160px 120px, #ff85a2, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      opacity: 0.6;
+      animation: twinkle 4s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    .intro-click-hint {
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 25px rgba(255, 182, 193, 0.4);
+      animation: pulseText 2s infinite;
+      z-index: 2;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    .airplane-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      display: none;
+    }
+
+    .paper-plane {
+      position: absolute;
+      width: 75px;
+      height: 75px;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+      animation: flyAlongPath 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes flyAlongPath {
+      0% {
+        top: 85%;
+        left: -10%;
+        transform: rotate(-10deg) scale(0.6);
+      }
+      50% {
+        top: 30%;
+        left: 45%;
+        transform: rotate(15deg) scale(1.2);
+      }
+      100% {
+        top: -20%;
+        left: 110%;
+        transform: rotate(-25deg) scale(0.8);
+      }
+    }
+
+    #main-content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease 0.5s, transform 1.5s ease 0.5s;
+      background: linear-gradient(180deg, #ffeff2 0%, #fff6e5 50%, #f0f4ff 100%);
+      min-height: 100vh;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-control {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border: 2px solid #ff85a2;
+      color: #ff477e;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-control:hover {
+      background: #ff85a2;
+      color: white;
+      transform: translateY(-2deg);
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 100px 20px 60px;
+      position: relative;
+    }
+
+    .birthday-badge {
+      display: inline-block;
+      background: #ff477e;
+      color: white;
+      font-family: var(--font-heading);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(255, 71, 126, 0.3);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      color: #2b2d42;
+      line-height: 1.25;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 0px #fff;
+    }
+
+    .hero-title span {
+      color: #ff477e;
+      background: linear-gradient(120deg, #ff477e, #ff85a2, #7000ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #6c757d;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    .scroll-down-hint {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #ff477e;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      animation: bounce 2s infinite;
+      text-decoration: none;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10deg); }
+      60% { transform: translateY(-5deg); }
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      margin: 40px 20px 30px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: #2b2d42;
+    }
+
+    .letters-container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .letter-card {
+      position: relative;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(0,0,0,0.04);
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .letter-card:hover {
+      transform: translateY(-5deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-sticker {
+      position: absolute;
+      font-size: 2.2rem;
+      user-select: none;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+    }
+    .card-sticker.top-right { top: 15px; right: 20px; }
+    .card-sticker.bottom-left { bottom: 15px; left: 20px; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 75px;
+      height: 75px;
+      flex-shrink: 0;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      background-color: #ffe6ea;
+    }
+
+    .sender-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sender-badge {
+      font-size: 0.75rem;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      width: fit-content;
+      margin-bottom: 4px;
+      background: rgba(255, 255, 255, 0.85);
+      color: #555;
+    }
+
+    .sender-name {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: #2b2d42;
+    }
+
+    .letter-body {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px dashed rgba(0, 0, 0, 0.12);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #2d3748;
+      white-space: pre-line;
+    }
+
+    /* Theme 1: Strawberry & Pink Hearts */
+    .theme-1 {
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      border-color: #ffb3c1;
+    }
+    .theme-1 .sender-badge { color: #d63384; background: #ffe6ea; }
+
+    /* Theme 2: Sunny Daisy & Sunflower */
+    .theme-2 {
+      background: linear-gradient(135deg, #ffe399 0%, #ffc048 100%);
+      border-color: #ffd32a;
+    }
+    .theme-2 .sender-badge { color: #b7791f; background: #fff9db; }
+
+    /* Theme 3: Lavender Galaxy */
+    .theme-3 {
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      border-color: #b8c0ff;
+    }
+    .theme-3 .sender-badge { color: #6f42c1; background: #f3e8ff; }
+
+    /* Theme 4: Mint Matcha */
+    .theme-4 {
+      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+      border-color: #78e08f;
+    }
+    .theme-4 .sender-badge { color: #198754; background: #e8f5e9; }
+
+    /* Theme 5: Sky Cloud */
+    .theme-5 {
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      border-color: #89c4f4;
+    }
+    .theme-5 .sender-badge { color: #0d6efd; background: #e7f1ff; }
+
+    /* Theme 6: Cozy Peach */
+    .theme-6 {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      border-color: #f8a5c2;
+    }
+    .theme-6 .sender-badge { color: #fd7e14; background: #fff3bf; }
+
+    /* Theme 7: Cotton Candy Rainbow */
+    .theme-7 {
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      border-color: #d8b4fe;
+    }
+    .theme-7 .sender-badge { color: #d63384; background: #f8f9fa; }
+
+    /* Theme 8: Ocean Breeze */
+    .theme-8 {
+      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+      border-color: #8fd3f4;
+    }
+    .theme-8 .sender-badge { color: #055160; background: #cff4fc; }
+
+    .gift-section {
+      text-align: center;
+      padding: 60px 20px 100px;
+      background: rgba(255, 255, 255, 0.4);
+      border-top: 2px dashed #ffb3c1;
+    }
+
+    .gift-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      color: #ff477e;
+      margin-bottom: 10px;
+    }
+
+    .gift-subtitle {
+      font-size: 1rem;
+      color: #6c757d;
+      margin-bottom: 30px;
+    }
+
+    .gift-box-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .gift-box {
+      font-size: 7rem;
+      transition: transform 0.1s ease;
+      filter: drop-shadow(0 10px 20px rgba(255, 71, 126, 0.3));
+    }
+
+    .gift-box.wobble {
+      animation: giftWobble 0.4s ease;
+    }
+
+    @keyframes giftWobble {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.15) rotate(-10deg); }
+      50% { transform: scale(1.15) rotate(10deg); }
+      75% { transform: scale(1.15) rotate(-5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .tap-counter {
+      margin-top: 15px;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      color: #ff477e;
+      background: white;
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .surprise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .surprise-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .surprise-card {
+      background: white;
+      padding: 40px;
+      border-radius: 30px;
+      text-align: center;
+      max-width: 90%;
+      width: 480px;
+      box-shadow: 0 20px 50px rgba(255, 71, 126, 0.5);
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .surprise-card h2 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      color: #ff477e;
+      margin-bottom: 15px;
+    }
+
+    .surprise-card p {
+      font-size: 1.1rem;
+      color: #4a5568;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .btn-close-surprise {
+      background: #ff477e;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 71, 126, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= 1. INTRO SCREEN ================= -->
+  <div id="intro-screen" onclick="startIntroAnimation()">
+    <div class="intro-stars"></div>
+    
+    <div class="intro-click-hint">
+      ✈️ nyampe nih pesawatnya(klik)...
+    </div>
+
+    <!-- Animasi Pesawat Kertas -->
+    <div class="airplane-wrapper" id="airplaneWrapper">
+      <svg class="paper-plane" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.94619 9.31543C1.42365 9.14125 1.41953 8.86022 1.95694 8.68108L21.0431 2.31902C21.5716 2.14285 21.8747 2.43866 21.7266 2.95694L16.2734 22.0431C16.1024 22.6416 15.8022 22.6288 15.6068 22.0182L12 10.75L1.94619 9.31543Z" fill="#ffffff"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ================= TOP BAR CONTROLS ================= -->
+  <div class="top-bar">
+    <button class="btn-control" id="musicBtn" onclick="toggleMusic()">
+      🎵 Musik: Off
+    </button>
+  </div>
+
+  <!-- ================= 2. MAIN WEBSITE CONTENT ================= -->
+  <div id="main-content">
+    
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="birthday-badge">Special sekaligus hadiah rajip kluyut 🎂</div>
+      
+      <h1 class="hero-title">
+        Selamat Ulang Tahun,<br><span>our rajip kluyut</span> ✨
+      </h1>
+
+      <p class="hero-subtitle">
+        Di surat kecil ini, kami ber-8 mau ngucapin sesuatu nih khusus dari lubuk hati kami masing-masing.
+      </p>
+
+      <a href="#letters-section" class="scroll-down-hint">
+        <span>sekrol ke bawah buat baca yaaa</span>
+        <span style="font-size: 1.5rem;">👇</span>
+      </a>
+    </section>
+
+    <!-- SECTION SURAT BER-8 -->
+    <div class="section-title-wrap">
+      <h2 class="section-title">💌 8 Pesan Huhu Dari Kami ;D</h2>
+    </div>
+
+    <section class="letters-container" id="letters-section">
+      
+      <!-- SURAT 1 (TEMA: STRAWBERRY SWEET) -->
+      <article class="letter-card theme-1">
+        <span class="card-sticker top-right">🍓</span>
+        <span class="card-sticker bottom-left">💖</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="nadine.jpeg" alt="Nadine" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">the Incredible</span>
+            <h3 class="sender-name">Nadine</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          halooo rajiv , mai lovely bestie lolok gweh 🤩💜💅🏻🧑🏻‍🩰
+
+jujurly, aku masih shock jir n ga terbiasa liat notif dm ig ku sepi wkwkwk , u yang biasanya nge spam reels ke dm ku ☺️ yaa meskipun aku gapernah reply ☹️ maaf yaa jiv.. u sekarang dah tinggal di negara yang beda sama gweh anjay mabar (gapapa sii mending gitu daripada disini di indo yg dipimpin sm wowo) , di lingkungan yang baru, orang-orang baru, dan kehidupan yang mungkin bakal terasa beda banget dari sebelumnya inj harapanku cuman satu jir PLEASE DON’T BE A GAY 🤤🌈🕺🏻. jujur, rasanya baru kemarin kita sek bisa ketemu, dan jadi partner lomba jir ☹️, jujur kangen banget sama masa-masa itu , kek OMGG PEAK BANGET SERUNYA COYY 🤩🕺🏻
+
+aku cuman mau bilang satu hal ini jir ke kamu. aku bangga sama kamu eakk asek asek 🏃🏻‍♀️😋🤙🏻 bangga pollll karena kamu berani ngambil langkah sejauh ini buat mengejar sesuatu yang kamu mau i guess? 😸. yaa i know pergi ke negara orang apalagi jauh banget tuh bukanlah hal kecil. pasti ada banyak hal yang harus rela kamu tinggalin, banyak hal juga yang mengharuskan kamu buat adaptasi lagi di negara orang , dan mybe bakal ada hari-hari ketika kamu ngerasa berat banget or smthng like that . butt aku harap, waktu hari-hari itu datang, u harus ingat kalo ada orang-orang yang selalu percaya kalo kamu  pasti mampu melewatinya.
+
+THANK YOU YA WOEE BES 🤑🤡
+
+thank you karena selama ini sudah mau jadi temen gweh, mai bestie lolok 🤩🥳. thank you juga buat semua waktu yang pernah kita lewati bareng anjazzz 😎, buat cerita-cerita gweh yang selalu u dengerin 🥺. pokoknya millions thank you buat u dahh 🙏🏻🫰🏻🥺🤩
+
+gweh juga mau minat maaf.
+
+maaf buat semua perkataan yang mungkin pernah bikin u tersinggung or ngerasa aku judge ya jiv ☹️, baik yang aku sengaja atau pun yang ngga pernah aku sadari. maaf juga kalo pernah ada sikapku yang buat u kecewa, merasa ngga dihargai, atau merasa apapun itu dah. maaf juga kalo masih sering telat nyalain streak api 🔥☹️ maaf juga kalo akhir-akhir ini aku jarang banget respon reels yg u kirim ke gweh 😞🌈
+
+gweh berharap , sejauh apa pun u pergi, u tetap jadi diri u sendiri, jadi rajiv yg gweh kenal pleasee. jangan terlalu keras sama diri u kalo ada sesuatu yang emang ngga bisa berjalan sesuai rencana. jangan ngerasa gagal hanya karena ada hari ketika u merasa lelah atau pengen pulang. u ga  harus selalu kuat kok 😞, u bisa cerita ke gweh jirr kan u selalu cerita apapun ke gweh 🤡
+
+i hope u can find banyak hal baik di sana. find banyak pengalaman baru, teman-teman baru, tempat-tempat baru, dan mybe kebebasan? yang mungkin belum pernah u temuin sebelumnya.
+
+semoga your new journey ini dipenuhi hal-hal baik. semoga juga u selalu diberi kesehatan, keberanian, dan orang-orang baik di sekeliling u. semoga semua usaha dan pengorbanan u membawa u semakin dekat dengan impian u. aamiin 🤲🏻
+
+gweh akan selalu doain u yang terbaik 😽🕺🏻, jaga diri baik-baik ya jiv di sana..
+
+Go chase your dreams, and dont forget to come home. (asik asik josszzz👩🏻‍🎤💃🏻)
+
+see you on top rajiv 🧗🏻‍♀️🕺🏻🤩🌈💜🫰🏻
+        </div>
+      </article>
+
+      <!-- SURAT 2 (TEMA: SUNNY DAISY) -->
+      <article class="letter-card theme-2">
+        <span class="card-sticker top-right">🌻</span>
+        <span class="card-sticker bottom-left">☀️</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="kirana.jpeg" alt="Kirana" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">anak kecil</span>
+            <h3 class="sender-name">Kirana</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          Buat RADJIV
+mff alay ya jiv, ga pengalaman bikin ginian soalnya.
+
+oke kita mulai aja.
+Jujur masih agak nggak nyangka sih kamu bakal berangkat ke Rusia….😭😭😭Kayak baru kemarin kita ngobrol dan ketawa-ketawa, scm an sekarang tiba-tiba kamu mau kuliah jauh banget sampai Rusia. Mff rada alay tp yaudahlah🌹🌹🌹
+
+Btw nih ya klo dipikir-pikir kita juga baru kenal kurang lebih setahun dan awalnya nggak yang deket banget. Tapi ternyata makin ke sini malah jadi deket, dan I'm really glad that happened. AWOWKWOWOW
+First impression pas aku kenal kamu nih yaaaa…, kamu tuh anaknya ramah, ceria, dan gtw kenapa energinya nggak pernah habis 😭😭
+sama ya aku ga pernah liat kamu bad mood, coba deh kapan” tunjukin wkwkwkwk.
+
+Gilak yaa dari anak olim kimia sampai sekarang lanjut Teknik Nuklir di Rusia… honestly, that's crazy but in a good way HAHAHA. I'm genuinely proud of you. Bisa sampai di titik ini pasti nggak gampang, dan aku harap kamu bisa menikmati semua prosesnya.
+
+Nanti mungkin bakal ada banyak hal baru, mulai dari lingkungan, teman, bahasa, sampai makanan yg beda banget sama makanan indo. Tapi semoga kamu bisa adaptasi dengan baik, ketemu banyak orang baik, dan punya banyak cerita seru di sana.
+(btw yg paragraf ini aku copas AI xixiixxixi)
+
+Mw ingetin deh jangan lupa juga buat jaga diri, jangan kebanyakan belajar sampai lupa hidup, dan yang paling penting jangan sombong kalau nanti udah jadi anak Rusia. Jangan lupa SHALAT JUGA ya nak….
+
+Anyway, good luck for your new journey! I hope Russia treats you well and you get everything youre hoping for. Go chase your dreams, future nuclear engineer ⚛️🇷🇺
+
+And please, don't forget us here. Kalau nanti pulang udah lancar bahasa Rusia, minimal masih mau ngobrol sama kita yaaaa🥺🥺🤗🤗🤗🤩🤩🥰🥰🥰😍😍
+#dontforgetSTREAK#S3m4Ngat#Misyutpboong#🌹🌹🌹
+
+Take care, bro. Youve got this. See you when I see you! 🤍
+        </div>
+      </article>
+
+      <!-- SURAT 3 (TEMA: LAVENDER GALAXY) -->
+      <article class="letter-card theme-3">
+        <span class="card-sticker top-right">🌙</span>
+        <span class="card-sticker bottom-left">✨</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="sheza.jpeg" alt="Sheza" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">Stargirl</span>
+            <h3 class="sender-name">Sheza</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          Halo Radjiv,
+Selamat ya... yey radjiv ke Rusia🤩Semoga semuanya lancar dari awal sampai nanti selesai studinya
+Bakal banyak hal baru yang kamu temuin di sana, jadi semoga kamu bisa cepat beradaptasi, ketemu orang-orang baik, dan dapat banyak pengalaman selama di sana. Kalau ada hari hari yang susah, semoga kamu bisa tetap kuat dan ingat tujuan awal kamu berangkat.
+Jangan lupa jaga kesehatan, jangan cuma fokus kuliah. Sesekali kabarin juga temen temen di sini🥺
+Semoga perjalanan kamu di Rusia berjalan baik dan semua yang kamu usahakan di sana bisa membuahkan hasil. Good luck for your new journey, Radjiv. See you yaaa🥺🥺
+— Sheza
+      </article>
+
+      <!-- SURAT 4 (TEMA: MINT MATCHA) -->
+      <article class="letter-card theme-4">
+        <span class="card-sticker top-right">🌿</span>
+        <span class="card-sticker bottom-left">🐾</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="tutul.jpeg" alt="Tutul" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">Ustadzah</span>
+            <h3 class="sender-name">Tutul</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          untuk: kutubb🐻‍❄️
+haloo rajiip, gimana rusia? pasti cantiik poll kek akoh wkwk😋☝🏻
+selamat menempuh usia baruu yaa jip, semoga rajip makin rajin ngajinya, sholatnya jgn lupaa yaa, banyak2 sedekah, baik ke semua orang, dijaga hafalannya, gk pernahh off semangatnya🤩
+perjalanan rajip di trip baru dalam hidup barusan mulai, selamat menjalani kehidupan baruuu, ditempat yg baru, teman2 baru, hp baru😝, yg pasti niatnya semoga selalu sama yaa jgn belok2😏
+aku emg baru kenal rajip dari omi, ternyata si kutub rusia ini sangat amat comelll yallaah masyallah tabarakallaaah😚🤪
+imutt kiyuutt pgn ku kempesin☺️🙏🏻
+pengen ku colong juga si hilono nya😎
+ternyata rajip baikk pwolll, gk medit bantuu, sabarnya juga yaa mayan lahh😌
+jangan lupain kita semua yaa jip, mbasio adoh indo🇮🇩-kutub🇷🇺-mesyer🇪🇬 silaturrahmi tetep kudu. semoga kita semua bisa sukses bareng2, dengan cara terbaik versi Allah, dan pribadi yg paling baik versi kita ya olll😇🥰
+JANGAN LUPA DHUHA BIAR KAYAA💸🪎💰
+JANGAN LUPA KIRIM FATIHAH HBS SHOLAT KE GURU2🤲🏻👳🏼‍♀️
+JANGAN LUPA MENIKMATI HARTA, KARNA HARTA GAK DIBAWA MATI😵💀
+
+tak kasi amalan yg pernah di spill gus robith, dibaca 4 kali tiap hbs sholat jamaah, insyallah rejekinya kita lancar halal deress, dijaga dr maksiat, amalannya rasul juga hehe
+اللهم يا غَنِيّ يا حَمِيد، يا مُبْدِئ يا مُعِيد، يا رحيم يا وَدُود،
+أغْنِنِي بِحَلاَلِكَ عَنْ حَرامِكَ وبِطَاعَتِكَ عَنْ مَعْصِيَتِكَ وبِفَضْلِكَ عَمَّنْ سِوَاكَ.
+        </div>
+      </article>
+
+      <!-- SURAT 5 (TEMA: SKY CLOUD) -->
+      <article class="letter-card theme-5">
+        <span class="card-sticker top-right">☁️</span>
+        <span class="card-sticker bottom-left">✈️</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="radit.jpeg" alt="Radit" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">Sukses Dunia Akhirat</span>
+            <h3 class="sender-name">Radit</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          Dear Radjiv🥹🙌😭😭
+
+haaii radjiv, apa kabar ? lagi ngapain ??? gimana rasanya hidup di rusia ??? jujur penasaran banget, aku pun sempet mikir 'yoopo yo nek misal e aku seng budal ??? hidup di lingkungan baru, iklim baru, orang baru, semuuaannyaa baru ??' ketok e ga sanggup deh aku.😭😭😭
+apapun keadaannya, nek semisal amu sedih, tetap semangat ya jip💪💪, pasti ada hal positif di sekitarmu, nek amu seneng, jangan lupain kita yang di indo ini....🥹
+semogaaa... kita bisa berkumpul lagi... membawa cerita, ilmu, dan pengalamannya masing-masing... sukses bareng... reuni pengajian... pasti seru deh...😭😭🤲
+pesanku... jan lupa sholatnya ya radjiv, jare gus balya kan seburuk apapun keadaanmu jangan lupa sholat... nek sholat mu berantakan, hidupmu pasti lebih berantakan...
+terakhir... semoga hadiahku kemaren bermanfaat ya jip, semoga cukup... nek ga cukup diet sek lah.. xixixixi😅😅
+        </div>
+      </article>
+
+      <!-- SURAT 6 (TEMA: COZY PEACH) -->
+      <article class="letter-card theme-6">
+        <span class="card-sticker top-right">👳🏻‍♂️</span>
+        <span class="card-sticker bottom-left">🕋</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="dapin.jpeg" alt="Dapin" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">Sholeh Kiyut</span>
+            <h3 class="sender-name">Dapin</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          untuk: radjiv si anak gemoy
+
+halooo rajiiippp, gimana rusiaaa??
+
+selamat yaa jippp, akhirnya memulai perjalanan baru di negeri orangg, semoga semua urusan rajip di sana dilancarkan, kuliahnya dimudahkan, ilmunya berkah, dan cepet adaptasi sama lingkungan barunya. semoga ketemu orang-orang baik dan dapet banyak pengalaman seru selama di sanaa
+
+perjalanan baru aja dimulai, tempat baru, temen baru, suasana baru. semoga sejauh apa pun rajip pergi, niat dan tujuan awalnya tetep dijaga yaa. jangan lupa jaga kesehatan, ibadahnya, dan semangatnyaa
+
+jangan lupain kita-kita yang di indo yaa jippp, silaturahmi tetep kudu jalan meskipun udah beda negara. oh iyo ga kangen jempol ku taaa???
+
+semoga rajip selalu dimudahkan dalam setiap langkahnya, sukses studinya, berkah ilmunya, dan bisa jadi pribadi yang makin baik lagi. semoga suatu saat nanti kita semua bisa ketemu lagi dengan cerita sukses masing-masing🥺🤍
+
+GOOD LUCK FOR YOUR NEW JOURNEY, RAJIPPP!! 
+
+semangat terus yaa, jangan lupa bahagiaa, dan jangan lupa pulang bawa ceritaaa
+
+see you soon yaaa, anak gemoy🥺
+
+— Dapinnn
+        </div>
+      </article>
+
+      <!-- SURAT 7 (TEMA: COTTON CANDY RAINBOW) -->
+      <article class="letter-card theme-7">
+        <span class="card-sticker top-right">🐳</span>
+        <span class="card-sticker bottom-left">🎉</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="billy.jpeg" alt="Billy" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">Whole Eater</span>
+            <h3 class="sender-name">Billy</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          U know that i cant arrange sentence and express my feelin in a good way right but.. .  i’ll try my best this time. Hai apa kabar is it good there? semoga nyaman Is there someone or something that made u uncomfortable? I hope not. Jip kamu disana hati hati yaa, haga kesehatan, jaga makan, olahraga tipis tipis kalo bisa. Jujur sedih pol sakjane kon ga nak ugm. Sepurane yo jip aku jane tau dungakno kon ga nak rusia. Sori yo aku jahat sori ambek kabeh kelakuanku. Pokoe sepurane gawe kabeh yo jip. Sumpah aku nyesel pol ga iso nak jkt. The truth is i really miss u. Cause u are my closest relative even sometimes closer than my family. Aku gaero kapan bakal iso ketemu neh tapi dungakno yo aku iso nembak exchange atau joint degree nak eropa lah at least. Aku maaf pol yo karo kabeh opo sg tau tak lakukno.i will always wish u the best. Eleng yoo kon gorong masakno aku taliwang. it s fine if u want to forget me actually if my presence bothering. Sepurane yi jip lek presence ku menghambatmu sometimes. Sori aku ga iso bikin surat iki ngena nak awakmu. I will always waiting for the time we meet again soon, semoga kon bahagia, sukses, even found ur soulmate maybe. But please hati hati yoo. Ojok meninggoy. Semoga kon iso ketemu wong seng berkali kali lipat luweh apik ketimbang aku. Make a friend yoo ojo koyok akuu. Suwon sisan yo jip gawe kabeh gawe ngancani aku ket smp sampe sma, ngancani olim mbek sinau, suwon pol sisan sering jumat berkahh……. Bahagia selalu yoo, lek gak seneng skip ae koyok biasane. segitu dulu yaa maaf acakadul.
+        </div>
+      </article>
+
+      <!-- SURAT 8 (TEMA: OCEAN BREEZE) -->
+      <article class="letter-card theme-8">
+        <span class="card-sticker top-right">🚀</span>
+        <span class="card-sticker bottom-left">✨</span>
+        <div class="card-header">
+          <div class="avatar-wrapper">
+            <img src="irham.jpeg" alt="Irham" class="avatar-img">
+          </div>
+          <div class="sender-info">
+            <span class="sender-badge">Smasif goat</span>
+            <h3 class="sender-name">Irham</h3>
+          </div>
+        </div>
+        <div class="letter-body">
+          Halo rajip, maaf mungkin aku ga nulis sebanyak yang lain karena energi ku udah habis buat nerbangin pesawat ini, hope all these things that we made could be the most unforgotable memory in your life. Aku cuma mau bilang semangat jip kuliah disana, jangan lupa sama dirimu sebagai muslim, tetep jalanin kewajiban. Homesick wajar kok.. kalo kamu kangen rumah semoga web kecil ini bisa jadi penghangat hati ya! doa kami dari sini yang terbaik buat kamu. kita ketemu di COC season 5 ya :D.
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ================= 3. KEJUTAN KADO SECTION ================= -->
+    <section class="gift-section">
+      <h2 class="gift-title">🎁 Ada Kejutan Terakhir!</h2>
+      <p class="gift-subtitle">Ketuk/Tap kado di bawah ini sebanyak 10 kali untuk membukanya!</p>
+      
+      <div class="gift-box-wrapper" onclick="tapGift()">
+        <div class="gift-box" id="giftBox">🎁</div>
+      </div>
+      <br>
+      <div class="tap-counter" id="tapCounter">Ketukan: 0 / 10</div>
+    </section>
+
+  </div>
+
+  <!-- SURPRISE POPUP MODAL -->
+  <div class="surprise-overlay" id="surpriseOverlay">
+    <div class="surprise-card">
+      <h2>🎉 SELAMAT ULANG TAHUN! 🎉</h2>
+      <p>
+        Semoga panjang umur, sehat selalu, bahagia, dan semua impiannya tercapai!<br><br>
+        <strong>From Ur beloved Friends ❤️</strong>
+      </p>
+      <button class="btn-close-surprise" onclick="closeSurprise()">Jangan Kangen ya(klik buat balik) 🥳</button>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    let tapCount = 0;
+    const maxTaps = 10;
+    let isIntroDone = false;
+    let audioCtx = null;
+    let isPlayingMusic = false;
+
+    // --- 1. INTRO ANIMATION ---
+    function startIntroAnimation() {
+      if (isIntroDone) return;
+      isIntroDone = true;
+
+      playPopSound(440);
+
+      const wrapper = document.getElementById('airplaneWrapper');
+      wrapper.style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('intro-screen').classList.add('hidden');
+        document.getElementById('main-content').classList.add('visible');
+        
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      }, 2500);
+    }
+
+    // --- 2. GIFT TAP INTERACTION ---
+    function tapGift() {
+      if (tapCount >= maxTaps) return;
+
+      tapCount++;
+      const giftBox = document.getElementById('giftBox');
+      const counter = document.getElementById('tapCounter');
+
+      giftBox.classList.remove('wobble');
+      void giftBox.offsetWidth; // trigger reflow
+      giftBox.classList.add('wobble');
+
+      playPopSound(300 + tapCount * 50);
+
+      counter.innerText = `Ketukan: ${tapCount} / ${maxTaps}`;
+
+      if (tapCount === maxTaps) {
+        giftBox.innerText = '💥';
+        counter.innerText = '🎉 TERBUKA!';
+
+        explodeConfetti();
+        playHappyBirthdayMelody();
+
+        setTimeout(() => {
+          document.getElementById('surpriseOverlay').classList.add('active');
+        }, 600);
+      }
+    }
+
+    function closeSurprise() {
+      document.getElementById('surpriseOverlay').classList.remove('active');
+    }
+
+    // --- 3. WEB AUDIO SYNTHESIZER ---
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playPopSound(freq = 400) {
+      initAudio();
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.8, audioCtx.currentTime + 0.1);
+
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function playHappyBirthdayMelody() {
+      initAudio();
+      if (!audioCtx) return;
+
+      const notes = [
+        { f: 264, d: 0.3 }, { f: 264, d: 0.3 }, { f: 297, d: 0.6 }, { f: 264, d: 0.6 }, { f: 352, d: 0.6 }, { f: 330, d: 1.0 },
+        { f: 264, d: 0.3 }, { f: 264, d: 0.3 }, { f: 297, d: 0.6 }, { f: 264, d: 0.6 }, { f: 396, d: 0.6 }, { f: 352, d: 1.0 }
+      ];
+
+      let now = audioCtx.currentTime;
+      notes.forEach(note => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.frequency.setValueAtTime(note.f, now);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + note.d);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + note.d);
+
+        now += note.d + 0.05;
+      });
+    }
+
+    function toggleMusic() {
+      initAudio();
+      const musicBtn = document.getElementById('musicBtn');
+      if (!isPlayingMusic) {
+        playHappyBirthdayMelody();
+        musicBtn.innerText = '🎵 Musik: On';
+        isPlayingMusic = true;
+      } else {
+        musicBtn.innerText = '🎵 Musik: Off';
+        isPlayingMusic = false;
+      }
+    }
+
+    // --- 4. CONFETTI FIREWORKS EXPLOSION ---
+    function explodeConfetti() {
+      const duration = 3 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+      }, 250);
+    }
+  </script>
+</body>
+</html>
