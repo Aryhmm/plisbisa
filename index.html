@@ -339,60 +339,29 @@
       white-space: pre-line;
     }
 
-    /* Theme 1: Strawberry & Pink Hearts */
-    .theme-1 {
-      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
-      border-color: #ffb3c1;
-    }
+    /* Themes */
+    .theme-1 { background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%); border-color: #ffb3c1; }
     .theme-1 .sender-badge { color: #d63384; background: #ffe6ea; }
 
-    /* Theme 2: Sunny Daisy & Sunflower */
-    .theme-2 {
-      background: linear-gradient(135deg, #ffe399 0%, #ffc048 100%);
-      border-color: #ffd32a;
-    }
+    .theme-2 { background: linear-gradient(135deg, #ffe399 0%, #ffc048 100%); border-color: #ffd32a; }
     .theme-2 .sender-badge { color: #b7791f; background: #fff9db; }
 
-    /* Theme 3: Lavender Galaxy */
-    .theme-3 {
-      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      border-color: #b8c0ff;
-    }
+    .theme-3 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); border-color: #b8c0ff; }
     .theme-3 .sender-badge { color: #6f42c1; background: #f3e8ff; }
 
-    /* Theme 4: Mint Matcha */
-    .theme-4 {
-      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
-      border-color: #78e08f;
-    }
+    .theme-4 { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); border-color: #78e08f; }
     .theme-4 .sender-badge { color: #198754; background: #e8f5e9; }
 
-    /* Theme 5: Sky Cloud */
-    .theme-5 {
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-      border-color: #89c4f4;
-    }
+    .theme-5 { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); border-color: #89c4f4; }
     .theme-5 .sender-badge { color: #0d6efd; background: #e7f1ff; }
 
-    /* Theme 6: Cozy Peach */
-    .theme-6 {
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-      border-color: #f8a5c2;
-    }
+    .theme-6 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); border-color: #f8a5c2; }
     .theme-6 .sender-badge { color: #fd7e14; background: #fff3bf; }
 
-    /* Theme 7: Cotton Candy Rainbow */
-    .theme-7 {
-      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-      border-color: #d8b4fe;
-    }
+    .theme-7 { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); border-color: #d8b4fe; }
     .theme-7 .sender-badge { color: #d63384; background: #f8f9fa; }
 
-    /* Theme 8: Ocean Breeze */
-    .theme-8 {
-      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-      border-color: #8fd3f4;
-    }
+    .theme-8 { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); border-color: #8fd3f4; }
     .theme-8 .sender-badge { color: #055160; background: #cff4fc; }
 
     .gift-section {
@@ -520,12 +489,15 @@
 </head>
 <body>
 
+  <!-- Element audio lokal untuk musik background -->
+  <audio id="bgMusic" src="Kita Ke Sana_spotdown.org.mp3" loop></audio>
+
   <!-- ================= 1. INTRO SCREEN ================= -->
   <div id="intro-screen" onclick="startIntroAnimation()">
     <div class="intro-stars"></div>
     
     <div class="intro-click-hint">
-      ✈️ nyampe nih pesawatnya(klik)...
+      ✈️️ nyampe nih pesawatnya(klik)...
     </div>
 
     <!-- Animasi Pesawat Kertas -->
@@ -571,7 +543,7 @@
 
     <section class="letters-container" id="letters-section">
       
-      <!-- SURAT 1 (TEMA: STRAWBERRY SWEET) -->
+      <!-- SURAT 1 -->
       <article class="letter-card theme-1">
         <span class="card-sticker top-right">🍓</span>
         <span class="card-sticker bottom-left">💖</span>
@@ -613,7 +585,7 @@ see you on top rajiv 🧗🏻‍♀️🕺🏻🤩🌈💜🫰🏻
         </div>
       </article>
 
-      <!-- SURAT 2 (TEMA: SUNNY DAISY) -->
+      <!-- SURAT 2 -->
       <article class="letter-card theme-2">
         <span class="card-sticker top-right">🌻</span>
         <span class="card-sticker bottom-left">☀️</span>
@@ -653,7 +625,7 @@ Take care, bro. Youve got this. See you when I see you! 🤍
         </div>
       </article>
 
-      <!-- SURAT 3 (TEMA: LAVENDER GALAXY) -->
+      <!-- SURAT 3 -->
       <article class="letter-card theme-3">
         <span class="card-sticker top-right">🌙</span>
         <span class="card-sticker bottom-left">✨</span>
@@ -673,9 +645,10 @@ Bakal banyak hal baru yang kamu temuin di sana, jadi semoga kamu bisa cepat bera
 Jangan lupa jaga kesehatan, jangan cuma fokus kuliah. Sesekali kabarin juga temen temen di sini🥺
 Semoga perjalanan kamu di Rusia berjalan baik dan semua yang kamu usahakan di sana bisa membuahkan hasil. Good luck for your new journey, Radjiv. See you yaaa🥺🥺
 — Sheza
+        </div>
       </article>
 
-      <!-- SURAT 4 (TEMA: MINT MATCHA) -->
+      <!-- SURAT 4 -->
       <article class="letter-card theme-4">
         <span class="card-sticker top-right">🌿</span>
         <span class="card-sticker bottom-left">🐾</span>
@@ -699,16 +672,16 @@ pengen ku colong juga si hilono nya😎
 ternyata rajip baikk pwolll, gk medit bantuu, sabarnya juga yaa mayan lahh😌
 jangan lupain kita semua yaa jip, mbasio adoh indo🇮🇩-kutub🇷🇺-mesyer🇪🇬 silaturrahmi tetep kudu. semoga kita semua bisa sukses bareng2, dengan cara terbaik versi Allah, dan pribadi yg paling baik versi kita ya olll😇🥰
 JANGAN LUPA DHUHA BIAR KAYAA💸🪎💰
-JANGAN LUPA KIRIM FATIHAH HBS SHOLAT KE GURU2🤲🏻👳🏼‍♀️
+JANGAN LUPA KIRIM FATIHAH HBS SHOLAT KE GURU2🤲🏻👳🏼‍♀️️
 JANGAN LUPA MENIKMATI HARTA, KARNA HARTA GAK DIBAWA MATI😵💀
 
 tak kasi amalan yg pernah di spill gus robith, dibaca 4 kali tiap hbs sholat jamaah, insyallah rejekinya kita lancar halal deress, dijaga dr maksiat, amalannya rasul juga hehe
 اللهم يا غَنِيّ يا حَمِيد، يا مُبْدِئ يا مُعِيد، يا رحيم يا وَدُود،
-أغْنِنِي بِحَلاَلِكَ عَنْ حَرامِكَ وبِطَاعَتِكَ عَنْ مَعْصِيَتِكَ وبِفَضْلِكَ عَمَّنْ سِوَاكَ.
+أغْنِنِي بِحَلاَلِكَ عَنْ حَرامِكَ وبِطَاعَتِكَ عَنْ مَعْصِيَتِكَ وبِفَضْلِكَ عَمَّنْ سِوَاكَ.
         </div>
       </article>
 
-      <!-- SURAT 5 (TEMA: SKY CLOUD) -->
+      <!-- SURAT 5 -->
       <article class="letter-card theme-5">
         <span class="card-sticker top-right">☁️</span>
         <span class="card-sticker bottom-left">✈️</span>
@@ -732,7 +705,7 @@ terakhir... semoga hadiahku kemaren bermanfaat ya jip, semoga cukup... nek ga cu
         </div>
       </article>
 
-      <!-- SURAT 6 (TEMA: COZY PEACH) -->
+      <!-- SURAT 6 -->
       <article class="letter-card theme-6">
         <span class="card-sticker top-right">👳🏻‍♂️</span>
         <span class="card-sticker bottom-left">🕋</span>
@@ -768,7 +741,7 @@ see you soon yaaa, anak gemoy🥺
         </div>
       </article>
 
-      <!-- SURAT 7 (TEMA: COTTON CANDY RAINBOW) -->
+      <!-- SURAT 7 -->
       <article class="letter-card theme-7">
         <span class="card-sticker top-right">🐳</span>
         <span class="card-sticker bottom-left">🎉</span>
@@ -786,7 +759,7 @@ see you soon yaaa, anak gemoy🥺
         </div>
       </article>
 
-      <!-- SURAT 8 (TEMA: OCEAN BREEZE) -->
+      <!-- SURAT 8 -->
       <article class="letter-card theme-8">
         <span class="card-sticker top-right">🚀</span>
         <span class="card-sticker bottom-left">✨</span>
@@ -838,7 +811,6 @@ see you soon yaaa, anak gemoy🥺
     const maxTaps = 10;
     let isIntroDone = false;
     let audioCtx = null;
-    let isPlayingMusic = false;
 
     // --- 1. INTRO ANIMATION ---
     function startIntroAnimation() {
@@ -874,6 +846,7 @@ see you soon yaaa, anak gemoy🥺
       void giftBox.offsetWidth; // trigger reflow
       giftBox.classList.add('wobble');
 
+      // Efek suara pop saat tap
       playPopSound(300 + tapCount * 50);
 
       counter.innerText = `Ketukan: ${tapCount} / ${maxTaps}`;
@@ -883,6 +856,7 @@ see you soon yaaa, anak gemoy🥺
         counter.innerText = '🎉 TERBUKA!';
 
         explodeConfetti();
+        // Memutar nada perayaan instan saat kado terbuka
         playHappyBirthdayMelody();
 
         setTimeout(() => {
@@ -895,7 +869,7 @@ see you soon yaaa, anak gemoy🥺
       document.getElementById('surpriseOverlay').classList.remove('active');
     }
 
-    // --- 3. WEB AUDIO SYNTHESIZER ---
+    // --- 3. WEB AUDIO SYNTHESIZER (Untuk Suara Tap & Melodi Kado) ---
     function initAudio() {
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -954,20 +928,21 @@ see you soon yaaa, anak gemoy🥺
       });
     }
 
+    // --- 4. TOGGLE BACKGROUND MUSIC (FILE LOKAL) ---
     function toggleMusic() {
-      initAudio();
+      const music = document.getElementById('bgMusic');
       const musicBtn = document.getElementById('musicBtn');
-      if (!isPlayingMusic) {
-        playHappyBirthdayMelody();
+
+      if (music.paused) {
+        music.play();
         musicBtn.innerText = '🎵 Musik: On';
-        isPlayingMusic = true;
       } else {
+        music.pause();
         musicBtn.innerText = '🎵 Musik: Off';
-        isPlayingMusic = false;
       }
     }
 
-    // --- 4. CONFETTI FIREWORKS EXPLOSION ---
+    // --- 5. CONFETTI FIREWORKS EXPLOSION ---
     function explodeConfetti() {
       const duration = 3 * 1000;
       const animationEnd = Date.now() + duration;
